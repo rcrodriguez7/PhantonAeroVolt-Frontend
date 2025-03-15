@@ -4,21 +4,18 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5173, // Asegura que se ejecute en el puerto correcto
+    port: 5173,
   },
   build: {
-    outDir: 'dist', // Debe coincidir con la configuración de Netlify
+    outDir: 'dist',
     rollupOptions: {
-      input: {
-        main: 'src/main.jsx',
-      },
+      input: 'index.html',  // 🔥 Asegura que el index.html esté incluido
     },
   },
   resolve: {
     alias: {
-      // Agrega una configuración para evitar errores de rutas en producción
       '@': '/src',
     },
   },
-  base: '/', // 🔥 Asegura que Netlify use la base correcta
+  base: '/', // 🔥 Usa '/' en lugar de './' para evitar problemas con rutas en Netlify
 });
