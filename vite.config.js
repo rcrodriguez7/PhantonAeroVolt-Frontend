@@ -3,21 +3,22 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      // No es necesario aquí, pero puedes añadir aliases si los necesitas
-    },
+  server: {
+    port: 5173, // Asegura que se ejecute en el puerto correcto
   },
   build: {
+    outDir: 'dist', // Debe coincidir con la configuración de Netlify
     rollupOptions: {
       input: {
-        main: 'src/main.jsx', // Especifica explícitamente main.jsx como punto de entrada
+        main: 'src/main.jsx',
       },
     },
   },
-  css: {
-    postcss: {
-      // Asegura que PostCSS funcione correctamente con Vite
+  resolve: {
+    alias: {
+      // Agrega una configuración para evitar errores de rutas en producción
+      '@': '/src',
     },
   },
+  base: '/', // 🔥 Asegura que Netlify use la base correcta
 });
