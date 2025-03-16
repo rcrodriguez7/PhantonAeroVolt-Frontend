@@ -8,11 +8,14 @@ function Dashboard() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Obtener la URL del backend desde las variables de entorno
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   // Cargar métricas del backend al montar el componente
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        const response = await axios.get('https://phanton-aerovolt-backend.onrender.com/metrics', {
+        const response = await axios.get(`${API_URL}/metrics`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -24,7 +27,7 @@ function Dashboard() {
     };
 
     fetchMetrics();
-  }, []);
+  }, [API_URL]);
 
   // Manejar el logout
   const handleLogout = () => {
