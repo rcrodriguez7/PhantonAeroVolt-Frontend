@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import { copyFileSync } from 'fs';
+import fs from 'fs';
 
 export default defineConfig({
   plugins: [react()],
@@ -19,4 +19,8 @@ export default defineConfig({
   },
 });
 
-copyFileSync('public/_redirects', 'dist/_redirects'); // 🔥 Esta línea copia el archivo
+// 🔥 Copia _redirects a dist/ si existe
+const redirectsPath = 'public/_redirects';
+if (fs.existsSync(redirectsPath)) {
+  fs.copyFileSync(redirectsPath, 'dist/_redirects');
+}
