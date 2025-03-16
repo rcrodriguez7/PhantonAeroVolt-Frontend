@@ -1,23 +1,26 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import { copyFileSync } from 'fs';
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5173,
-  },
   build: {
     outDir: 'dist',
     rollupOptions: {
-      input: {
-        main: 'index.html', // 🔥 Asegura que el punto de entrada sea correcto
-      },
+      input: 'index.html',
     },
+    emptyOutDir: true,
   },
+  base: '/',
   resolve: {
     alias: {
       '@': '/src',
     },
   },
-  base: './', // 🔥 Usa './' para evitar problemas con archivos estáticos
+  // 🔥 Hook para copiar _redirects después del build
+  esbuild: {
+    minify: true,
+  },
 });
+
+copyFileSync('public/_redirects', 'dist/_redirects');
