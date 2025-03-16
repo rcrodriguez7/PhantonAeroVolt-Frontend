@@ -9,7 +9,9 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     rollupOptions: {
-      input: 'index.html',  // 🔥 Asegura que el index.html esté incluido
+      input: {
+        main: 'index.html', // 🔥 Asegura que el punto de entrada sea correcto
+      },
     },
   },
   resolve: {
@@ -17,5 +19,5 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  base: '/', // 🔥 Usa '/' en lugar de './' para evitar problemas con rutas en Netlify
+  base: './', // 🔥 Usa './' para evitar problemas con archivos estáticos
 });
