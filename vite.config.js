@@ -17,10 +17,6 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  // 🔥 Hook para copiar _redirects después del build
-  esbuild: {
-    minify: true,
-  },
 });
 
-copyFileSync('public/_redirects', 'dist/_redirects');
+copyFileSync('public/_redirects', 'dist/_redirects'); // 🔥 Esta línea copia el archivo
